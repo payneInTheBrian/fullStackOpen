@@ -5,8 +5,8 @@ function App() {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
-  const Button = (props) => {
-   <button onClick={props.onClick}>{props.text}</button>
+  const Button = ( props ) => {
+   return <button onClick={props.onClick}>{props.text}</button>
   }
 
   const handleGoodClick = (props) => {
@@ -21,23 +21,27 @@ function App() {
    setBad(bad + 1)
  }
 
- const reset = (props) => {
+ const handleReset = (props) => {
   setGood(0)
   setBad(0)
   setNeutral(0)
  }
 
 
-  const Feedback = () => {
+  const Feedback = ({ props }) => {
     return (
       <>
-      <h1>Give Feedback</h1>
-      <button onClick={handleGoodClick}>good</button>
-      <button onClick={handleNeutralClick}>neutral</button>
-      <button onClick={handleBadClick}>bad</button>
-      <button onClick={reset}>reset</button>
+        <h1>Give Feedback</h1>
+        <Button onClick={handleGoodClick} text="good" />
+        <Button onClick={handleNeutralClick} text="neutral" />
+        <Button onClick={handleBadClick} text="bad"  />
+        <Button onClick={handleReset} text="reset" />
       </>
     )
+  }
+
+  const StatisticsLine = (props) => {
+    return <p>{props.text} {props.value}</p>
   }
 
   const Statistics = (props) => {
@@ -50,12 +54,13 @@ function App() {
         <h1>Statistics</h1>
         {all ? 
           <div>
-            <p>good {good}</p>
-            <p>neutral {neutral}</p>
-            <p>bad {bad}</p>
-            <p>all {all}</p>
-            <p>average {average} %</p>
-            <p>positive {positive} %</p>
+            <StatisticsLine text="good" value={good} />
+            <StatisticsLine text="neutral" value={neutral} />
+            <StatisticsLine text="bad" value={bad} />
+            <StatisticsLine text="all" value={all} />
+            <StatisticsLine text="average" value={average + " %"} />
+            <StatisticsLine text="positive" value={positive + " %"} />
+            
           </div>
           : <p>No Feedback Given </p>
         } 
@@ -63,13 +68,10 @@ function App() {
     )
   }
   
-  
-
   return (
     <>
       {/* <div>
         <h2>give feedback</h2>
-        {console.log(ratings[0])}
         <button onClick={handleGoodClick}>{ratings.good}</button>
         <button onClick={() => setNeutral(neutral + 1)}>neutral</button>
         <button onClick={() => setBad(bad + 1)}>bad</button>
@@ -77,10 +79,11 @@ function App() {
       <Feedback 
         handleGoodClick={handleGoodClick} 
         handleBadClick={handleBadClick} 
-        handleNeutralClick={handleNeutralClick}/>
+        handleNeutralClick={handleNeutralClick}
+        handleReset={handleReset}
+      />
         
       <Statistics good={good} neutral={neutral} bad={bad}/>
-      
     </>
   )
 }
