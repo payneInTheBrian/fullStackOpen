@@ -41,7 +41,13 @@ function App() {
   }
 
   const StatisticsLine = (props) => {
-    return <p>{props.text} {props.value}</p>
+    return (
+    <tr>
+      <td>{props.text} </td>
+      <td>{props.value}</td>
+    </tr>
+    
+    )
   }
 
   const Statistics = (props) => {
@@ -54,13 +60,16 @@ function App() {
         <h1>Statistics</h1>
         {all ? 
           <div>
-            <StatisticsLine text="good" value={good} />
-            <StatisticsLine text="neutral" value={neutral} />
-            <StatisticsLine text="bad" value={bad} />
-            <StatisticsLine text="all" value={all} />
-            <StatisticsLine text="average" value={average + " %"} />
-            <StatisticsLine text="positive" value={positive + " %"} />
-            
+            <table>
+              <tbody>
+                <StatisticsLine text="good" value={good} />
+                <StatisticsLine text="neutral" value={neutral} />
+                <StatisticsLine text="bad" value={bad} />
+                <StatisticsLine text="all" value={all} />
+                <StatisticsLine text="average" value={average + " %"} />
+                <StatisticsLine text="positive" value={positive + " %"} />
+              </tbody>
+            </table>
           </div>
           : <p>No Feedback Given </p>
         } 
