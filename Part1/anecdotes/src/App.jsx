@@ -27,7 +27,6 @@ const App = () => {
     updatedVotes[selected]++
       console.log(updatedVotes)
     setVotes(updatedVotes)
-   
       console.log("selecteds index ", updatedVotes.indexOf(updatedVotes[selected]))
       console.log("selected's value ", updatedVotes[selected])
       console.log("old most index ", most)
