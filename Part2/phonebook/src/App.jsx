@@ -3,27 +3,33 @@ import Person from './components/Person'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' },
-    
+    { name: 'Arto Hellas',  number: '040-1234567'}
   ]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
       name: newName,
+      number: newNumber,
       id: newName
     }
     persons.find(person => person.name === newName) ? 
       alert(`${newName} is already added to phonebook`) :
-      setPersons(persons.concat(personObject))
+      setPersons(persons.concat(personObject)),
     setNewName('')
+    setNewNumber('')
     
   }
 
   const handlePersonChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
+  }
+
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
   }
   
   return (
@@ -34,6 +40,9 @@ const App = () => {
 
         <div>
           name: <input onChange={handlePersonChange} />
+        </div>
+        <div>
+          number: <input onChange={handleNumberChange} />
         </div>
         <div>
           <button onClick={addPerson} type="submit">add</button>
