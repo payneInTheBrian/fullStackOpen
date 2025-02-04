@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Person from './components/Person'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -10,10 +11,12 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
     const personObject = {
-      constent: newName,
+      name: newName,
       id: newName
     }
-    setPersons(persons.concat(personObject))
+    persons.find(person => person.name === newName) ? 
+      alert(`${newName} is already added to phonebook`) :
+      setPersons(persons.concat(personObject))
     setNewName('')
     
   }
@@ -39,7 +42,7 @@ const App = () => {
    
       <h2>Numbers</h2>
       <ul>
-        {persons.map((person) => <li key={person.name}>{person.name}</li>)}
+        {persons.map((person) => <Person key={person.name} person={person} /> )}
       </ul>
     </div>
     
