@@ -1,14 +1,22 @@
 import { useState } from 'react'
 import Person from './components/Person'
+import Filter from './components/Filter'
+import Persons from './components/Persons'
+import FilteredPersons from './components/FilteredPersons'
+import PersonForm from './components/PersonForm'
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas',  number: '040-1234567'}
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
+    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [filter, setFilter] = useState('')
 
-  const addPerson = (event) => {
+  const handleAddPerson = (event) => {
     event.preventDefault()
     const personObject = {
       name: newName,
@@ -20,7 +28,6 @@ const App = () => {
       setPersons(persons.concat(personObject)),
     setNewName('')
     setNewNumber('')
-    
   }
 
   const handlePersonChange = (event) => {
@@ -31,28 +38,36 @@ const App = () => {
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
   }
+
+  const handleFilter = (event) => {
+      setFilter(event.target.value)
+  }
+
+  const filterNames = persons.filter(person => 
+    person.name.toLowerCase().includes(filter)
+  )
   
   return (
     <div>
-      <div>debug: {newName}</div>
       <h2>Phonebook</h2>
-      <form>
 
-        <div>
-          name: <input onChange={handlePersonChange} />
-        </div>
-        <div>
-          number: <input onChange={handleNumberChange} />
-        </div>
-        <div>
-          <button onClick={addPerson} type="submit">add</button>
-        </div>
-      </form>
-   
-      <h2>Numbers</h2>
-      <ul>
-        {persons.map((person) => <Person key={person.name} person={person} /> )}
-      </ul>
+        <Filter onChange={handleFilter} />
+
+        <FilteredPersons 
+          filterNames={filterNames} 
+          persons={persons}
+        />
+
+      <PersonForm 
+        onPersonChange={handlePersonChange} 
+        onNumberChange={handleNumberChange} 
+        onSubmit={handleAddPerson} 
+      />
+
+      <h2>People</h2>
+
+      <Persons persons={persons} />
+
     </div>
     
   )
