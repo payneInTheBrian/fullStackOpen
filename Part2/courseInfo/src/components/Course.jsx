@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 const Header = ({ name }) => {
     return (
       <>  
@@ -47,3 +46,4 @@ const Course = ({ course }) => {
 
 
 export default Course
+
