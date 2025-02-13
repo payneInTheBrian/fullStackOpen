@@ -4,7 +4,7 @@ import Person from './Person'
 const FilteredPersons = ({ filterNames, persons, event }) => {
   return (
     filterNames.length !== persons.length && filterNames.map((person) => (
-        <p key={person.name}>
+        <p key={person.id}>
           {person.name} {person.number}
         </p>
         

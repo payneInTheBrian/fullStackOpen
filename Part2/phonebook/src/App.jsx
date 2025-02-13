@@ -17,9 +17,8 @@ const App = () => {
     console.log('effect')
     personService
       .getAll()
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   }, [])
   console.log('render', persons.length, 'persons')
@@ -32,8 +31,9 @@ const App = () => {
     }
     personService
       .create(personObject)
-      .then(response => {
-        setPersons(persons.concat(response.data))
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        // setPersons(persons.concat(response.data))
         setNewName('')
       })
    
