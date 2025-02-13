@@ -5,6 +5,7 @@ import Filter from './components/Filter'
 import Persons from './components/Persons'
 import FilteredPersons from './components/FilteredPersons'
 import PersonForm from './components/PersonForm'
+import personService from './services/personService'
 
 const App = () => {
   const [persons, setPersons] = useState([
