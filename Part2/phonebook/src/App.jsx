@@ -36,7 +36,6 @@ const App = () => {
         // setPersons(persons.concat(response.data))
         setNewName('')
       })
-   
   }
 
   const handlePersonChange = (event) => {
