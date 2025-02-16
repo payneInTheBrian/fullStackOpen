@@ -29,6 +29,8 @@ const App = () => {
       name: newName,
       number: newNumber,
     }
+    persons.find(person => person.name === newName) ? 
+    handleUpdateNumber :
     personService
       .create(personObject)
       .then(returnedPerson => {
@@ -36,6 +38,31 @@ const App = () => {
         // setPersons(persons.concat(response.data))
         setNewName('')
       })
+  }
+
+  const handleUpdateNumber = () => {
+    personService
+      .update(id)
+      .then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+      })
+  }
+
+  const handleDeletePerson = (id, name) => {
+    const confirmDelete = confirm(`Delete ${name}`)
+    if(confirmDelete){
+      personService
+        .deletePerson(id)
+        .then(person => {
+          setPersons(persons.filter(person => person.id !== id))
+    }).catch(error => {
+        console.log(error)
+    })
+    }else{
+      console.log('maybe not')
+      alert('ok then')
+    }
+      
   }
 
   const handlePersonChange = (event) => {
@@ -74,7 +101,7 @@ const App = () => {
 
       <h2>People</h2>
 
-      <Persons persons={persons} />
+      <Persons persons={persons} handleDeletePerson={handleDeletePerson} />
 
     </div>
     
