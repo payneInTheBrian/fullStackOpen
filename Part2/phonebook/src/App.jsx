@@ -30,13 +30,14 @@ const App = () => {
       number: newNumber,
     }
     const exists = persons.find(person => person.name === newName) 
+
     exists 
     ? confirm(`Update ${newName}'s number?`) &&
       personService
         .update(exists.id, personObject)
         .then(updatedPerson => {
           setPersons(persons.map(person => person.id === updatedPerson.id 
-            ? { ...person, number: newNumber} 
+            ? updatedPerson
             : person))
         }).catch(error => {
           console.log(error)
@@ -50,14 +51,6 @@ const App = () => {
           setNewNumber('')
         })
   }
-
-  // const handleUpdateNumber = () => {
-  //   personService
-  //     .update(id, nameObject)
-  //     .then(updatedPerson => {
-  //       setPersons(persons.concat(updatedPerson))
-  //     })
-  // }
 
   const handleDeletePerson = (id, name) => {
     const confirmDelete = confirm(`Delete ${name}`)
