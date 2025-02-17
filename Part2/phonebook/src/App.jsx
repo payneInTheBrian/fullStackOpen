@@ -6,7 +6,8 @@ import Persons from './components/Persons'
 import FilteredPersons from './components/FilteredPersons'
 import PersonForm from './components/PersonForm'
 import personService from './services/personService'
-import Notification from './components/Notification'
+import SNotification from './components/SNotification'
+import ENotification from './components/ENotification'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
@@ -14,6 +15,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     console.log('effect')
@@ -42,13 +44,18 @@ const App = () => {
             ? updatedPerson
             : person))
             setSuccessMessage(
-              `Updated ${updatedPerson.name}'s number`
+              `Updated ${newName}'s number`
             )
             setTimeout(() => {
               setSuccessMessage(null)
             }, 5000)
         }).catch(error => {
-          console.log(error)
+          setErrorMessage(
+            `Information of ${newName} has already been removed from the server`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
       }) 
       : personService
         .create(personObject)
@@ -103,8 +110,9 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-        
-        <Notification message={successMessage}/>
+        {successMessage && <SNotification message={successMessage}/>}
+       
+        {errorMessage && <ENotification message={errorMessage}/>}
 
         <Filter onChange={handleFilter} />
 
